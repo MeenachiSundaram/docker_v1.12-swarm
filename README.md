@@ -45,7 +45,9 @@ we gonna use docker `manomarks/visualizer` image to get a clear idea about docke
   ```
   docker run -it -d -p 5000:5000 -e HOST=192.168.0.52 -e PORT=5000 -v /var/run/docker.sock:/var/run/docker.sock manomarks/visualizer
   ```
+
   ![b](./readme-images/b.png)
+
 - `docker ps` shows the running *manomarks/visualizer* on port *5000*
 
   ![a](./readme-images/a.png)
@@ -55,6 +57,7 @@ we gonna use docker `manomarks/visualizer` image to get a clear idea about docke
 ## Creating Swarm Master
 
 - On master1 node run the following command
+
     ```
     docker swarm init --advertise-addr 192.168.0.52
     ```
@@ -68,6 +71,7 @@ we gonna use docker `manomarks/visualizer` image to get a clear idea about docke
 ## Attaching Worker Nodes to Swarm Master
 
 - On worker-1 node run the following `docker swarm join` command with the token generated on `master1`
+
   ```
   docker swarm join \
   --token SWMTKN-1-3kjq5jkbv2tfxzr5kkvtbqmq7eboj1mkewr47g7dhpo69gfnsh-4ja77pbzmvgonnzvq8aio6xku \
@@ -81,6 +85,7 @@ we gonna use docker `manomarks/visualizer` image to get a clear idea about docke
   ![4](./readme-images/4.png)
 
 - Also on worker-2 node run the same `docker swarm join` command
+
   ```
   docker swarm join \
   --token SWMTKN-1-3kjq5jkbv2tfxzr5kkvtbqmq7eboj1mkewr47g7dhpo69gfnsh-4ja77pbzmvgonnzvq8aio6xku \
@@ -96,6 +101,7 @@ we gonna use docker `manomarks/visualizer` image to get a clear idea about docke
 ### List of Nodes
 
 Now in master run the below command to see the list of nodes in the swarm.
+
   ```
   docker node ls
   ```
@@ -111,8 +117,11 @@ Now in master run the below command to see the list of nodes in the swarm.
   ```
 
   - Here we use `docker service create` to run a service in docker swarm
+
   - `--replicas 1` denote the number of running instances
+
   - `-p 8080:80` used for port mapping
+
   - `instavote/vote` is a container we used
 
 - To see the list of running services, Run `docker service ls`
@@ -124,7 +133,9 @@ Now in master run the below command to see the list of nodes in the swarm.
 - Run `docker service inspect --pretty <SERVICE-ID>` to display the details about a service in an easily readable format.
 
   ![11](./readme-images/11.png)
+
 - Running `docker service inspect <SERVICE-ID>` without *--pretty* will display the details in **JSON** format
+
   ```
   root@manager1:/home/ubuntu# docker service inspect 6oxnfhi8o5lh
   [
@@ -205,9 +216,11 @@ Now in master run the below command to see the list of nodes in the swarm.
   ```
 
 - Run `docker service ps <SERVICE-ID>` on master to see which nodes are running the service
+
   ```
   docker service ps 6oxnfhi8o5lh
   ```
+
   ![12](./readme-images/12.png)
 
 - Also we can run `docker ps` on the node where the task is running to see details about the container for the task.
@@ -229,18 +242,25 @@ Now in master run the below command to see the list of nodes in the swarm.
 ## Service Scalling in swarm
 
 - In master node running the command `docker service scale <SERVICE-ID>=<NUMBER-OF-TASKS>` will change the desired state of running service in swarm.
+
   ```
   docker service scale 6oxnfhi8o5lh=6
   ```
+
 - Run `docker service ls` to see the current state of **Replicas**
   ![10](./readme-images/10.png)
+
 - Run `docker service ps <SERVICE-ID>` will display the task node list on which it is running.
+
   ```
   docker service ps 6oxnfhi8o5lh
   ```
+
   ![15](./readme-images/15.png)
+
 - In visualizer you can see the detailed view about the number of running services and on various nodes.
   ![14](./readme-images/14.png)
+
 - By visiting http://<IP>:8080 in browser we can see the output with a various container ID's.
 
   - `IP` could be any of master or worker IP's, since it is a swarm service all will be redirected to the same.
@@ -252,9 +272,11 @@ Now in master run the below command to see the list of nodes in the swarm.
 ## Removing Swarm Services
 
 - Run  `docker service rm <SERVICE-ID>` will remove the complete swarm service along with Replicas.
+
   ```
   docker service rm 6oxnfhi8o5lh
   ```
+
   ![16](./readme-images/16.png)
 
 ## Apply rolling updates to a service
