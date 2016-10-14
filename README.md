@@ -38,7 +38,7 @@
 
 ## Creating a Docker-Swarm visualizer
 
-we gonna use docker `manomarks/visualizer` image to get a clear idea about docker swarm.
+We gonna use docker [`manomarks/visualizer`](https://hub.docker.com/r/manomarks/visualizer/) image to get a clear idea about docker swarm.
 
 - Run the following command on the master node
 
@@ -281,7 +281,40 @@ Now in master run the below command to see the list of nodes in the swarm.
 
 ## Apply rolling updates to a service
 
-[Link](https://docs.docker.com/engine/swarm/swarm-tutorial/rolling-update/)
+- Checking the existing swarm services by running `docker service inspect --pretty <SERVICE-ID>`
+
+  ```
+  docker service inspect --pretty vote
+  ```
+  ![17](./readme-images/17.png)
+
+- By running `docker service update --image <IMAGE_NAME> <SERVICE-ID|SERVICE-NAME>` the existing swarm service will be updated.
+
+  ```
+  docker service update --image instavote/vote:movies vote
+  ```
+
+- Now checking the swarm services by running `docker service inspect --pretty <SERVICE-ID>` will show the progress of update.
+
+  ```
+  docker service inspect --pretty vote
+  ```
+  ![18](./readme-images/18.png)
+
+- Run `docker service ps <SERVICE-ID>` to watch the rolling update
+
+  ```
+  docker service ps vote
+  ```
+  ![19](./readme-images/19.png)
+
+- In docker-visualizer by visiting http://192.168.0.52:5000/ we can see the clearly updated service as follows
+
+  ![3.gif](./readme-images/gif/3.gif)
+
+- By visiting http://192.168.0.52:8080 in browser we can see the change in output with respect to the *service update* based on container image.
+
+  ![4.gif](./readme-images/gif/4.gif)
 
 ## Drain a node on the swarm
 
