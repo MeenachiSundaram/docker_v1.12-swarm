@@ -16,7 +16,10 @@
 
   - Installing certificates `sudo apt-get install apt-transport-https ca-certificates`
 
-  - Adding APT key `sudo apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D`
+  - Adding APT key
+      ```
+      sudo apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D`
+      ```
 
   - Add an APT-source entry
     - Edit/Create a file `vim /etc/apt/sources.list.d/docker.list`
@@ -24,7 +27,10 @@
 
       (or)
 
-    - Just run `sudo echo 'deb https://apt.dockerproject.org/repo ubuntu-trusty main' > /etc/apt/sources.list.d/docker.list`
+    - Just run
+        ```
+        sudo echo 'deb https://apt.dockerproject.org/repo ubuntu-trusty main' > /etc/apt/sources.list.d/docker.list`
+        ```
 
   - Run update to update the APT-source entry `sudo apt-get update`
 
@@ -273,7 +279,7 @@ In visualizer you can see the detailed view about the number of running services
 
 ![14](./readme-images/14.png)
 
-By visiting http://<IP>:8080 in browser we can see the output with a various container ID's.
+By visiting http://<IP>:8080 in browser we can see the output with a **various container ID's**.
 
 - `IP` could be any of master or worker IP's, since it is a swarm service all will be redirected to the same.
 
