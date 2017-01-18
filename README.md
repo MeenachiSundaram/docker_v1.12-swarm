@@ -59,7 +59,7 @@ We gonna use docker [`manomarks/visualizer`](https://hub.docker.com/r/manomarks/
 Run the following command on the master node
 
 ```
-docker run -it -d -p 5000:5000 -e HOST=192.168.0.52 -e PORT=5000 -v /var/run/docker.sock:/var/run/docker.sock manomarks/visualizer
+docker run -it -d -p 5000:8080 -v /var/run/docker.sock:/var/run/docker.sock manomarks/visualizer
 ```
 
 ![b](./readme-images/b.png)
